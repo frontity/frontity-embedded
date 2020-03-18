@@ -6,15 +6,24 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
   status_header( 301 );
   exit();
 } 
+
+// Build the URL to do the request to the Frontity server.
+$url = 'http://localhost:3000' . $_SERVER['REQUEST_URI'];
+
+// Add the nonce for the preview mode.
+if ( isset( $_GET['preview'] ) && $_GET['preview'] === 'true' ) {
+  $url = html_entity_decode( wp_nonce_url( $url, 'wp_rest', 'wp_rest_nonce' ) );
+}
+
 // Do the request to the Frontity server.
-$response = wp_remote_get( 'http://localhost:3000' . $_SERVER['REQUEST_URI'] );
+$response = wp_remote_get( $url );
 
 if ( !is_wp_error( $response ) ) {
   global $wp_query;
-  $isStatic = strpos($_SERVER['REQUEST_URI'], '/static/') === 0;
+  $isStatic = strpos( $_SERVER['REQUEST_URI'], '/static/' ) === 0;
 
   // Pass through the headers of the response.
-  foreach ($response['headers'] as $header => $value) {
+  foreach ( $response['headers'] as $header => $value ) {
     header( $header . ': ' . $value );
   }
 
