@@ -1,4 +1,11 @@
 <?php
+
+// Redirect Webpack HMR to the Frontity server.
+if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
+  header( 'Location: http://localhost:3000/__webpack_hmr' );
+  status_header( 301 );
+  exit();
+} 
 // Do the request to the Frontity server.
 $response = wp_remote_get( 'http://localhost:3000' . $_SERVER['REQUEST_URI'] );
 
