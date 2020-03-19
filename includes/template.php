@@ -32,7 +32,7 @@ if ( !is_wp_error( $response ) ) {
   // Add the admin bar.
   if ( !$isStatic && is_admin_bar_showing() ) {
     // Divide the HTML to be able to insert things in the <head> and <body>.
-    list($head, $rest) = preg_split('/(?=<\/head>)/', $response['body']);
+    list($head, $rest) = preg_split('/(?=<\/head>)/', wp_remote_retrieve_body( $response ) );
     list($body, $end) = preg_split('/(?=<\/body>)/', $rest);
 
     // Echo the <head>, but don't echo </head> tag yet. 
@@ -66,7 +66,7 @@ if ( !is_wp_error( $response ) ) {
     // Echo the final </body> and </html> tags.
     echo $end;
   } else {
-    echo $response['body'];
+    echo wp_remote_retrieve_body( $response );
   }
 
 
