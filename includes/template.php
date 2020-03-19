@@ -10,11 +10,6 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 // Build the URL to do the request to the Frontity server.
 $url = 'http://localhost:3000' . $_SERVER['REQUEST_URI'];
 
-// Add the nonce for the preview mode.
-if ( isset( $_GET['preview'] ) && $_GET['preview'] === 'true' ) {
-  $url = html_entity_decode( wp_nonce_url( $url, 'wp_rest', 'wp_rest_nonce' ) );
-}
-
 // Do the request to the Frontity server.
 $response = wp_remote_get( $url );
 
