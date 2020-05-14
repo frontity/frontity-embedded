@@ -16,11 +16,9 @@ $response = wp_remote_get( $url );
 if ( !is_wp_error( $response ) ) {
   global $wp_query;
   $isStatic = strpos( $_SERVER['REQUEST_URI'], '/static/' ) === 0;
-
-  // Pass through the headers of the response.
-  foreach ( $response['headers'] as $header => $value ) {
-    header( $header . ': ' . $value );
-  }
+  
+  // Pass through the Content-Type header.
+  header( 'content-type: ' . $response['headers']['content-type'] );
 
   // Pass through the status of the response.
   status_header( $response['response']['code'] );
