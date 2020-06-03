@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Plugin settings. Edit them to match your Frontity server configuration.
+ */
+$frontity_server = 'http://localhost:3000';
+$frontity_static_folder = '/static/';
+
+/***********************************************************************/
+
 // Redirect Webpack HMR to the Frontity server.
 if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
   header( 'Location: http://localhost:3000/__webpack_hmr' );
@@ -8,14 +16,14 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 } 
 
 // Build the URL to do the request to the Frontity server.
-$url = 'http://localhost:3000' . $_SERVER['REQUEST_URI'];
+$url = $frontity_server . $_SERVER['REQUEST_URI'];
 
 // Do the request to the Frontity server.
 $response = wp_remote_get( $url );
 
 if ( !is_wp_error( $response ) ) {
   global $wp_query;
-  $isStatic = strpos( $_SERVER['REQUEST_URI'], '/static/' ) === 0;
+  $isStatic = strpos( $_SERVER['REQUEST_URI'], $frontity_static_folder ) === 0;
   
   // Pass through the Content-Type header.
   header( 'content-type: ' . $response['headers']['content-type'] );
