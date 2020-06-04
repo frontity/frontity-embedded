@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Plugin settings. Edit them to match your Frontity server configuration.
+ */
+$frontity_server = 'http://localhost:3000';
+
+/**
+ * Alternatively, you can use environment variables.
+ */
+if (getenv("FRONTITY_SERVER")) {
+  $frontity_server = getenv("FRONTITY_SERVER");
+}
+
+/***********************************************************************/
+
 // Redirect Webpack HMR to the Frontity server.
 if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
   header( 'Location: http://localhost:3000/__webpack_hmr' );
@@ -8,7 +22,7 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 } 
 
 // Build the URL to do the request to the Frontity server.
-$url = 'http://localhost:3000' . $_SERVER['REQUEST_URI'];
+$url = $frontity_server . $_SERVER['REQUEST_URI'];
 
 // Do the request to the Frontity server.
 $response = wp_remote_get( $url );

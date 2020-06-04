@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Theme Bridge
- * Description: Substitute your theme with the response of an external server.
- * Plugin URI: 
+ * Plugin Name: Frontity Embedded Mode - [Proof of Concept]
+ * Description: Replace the WordPress theme with an HTTP request to the Frontity server.
+ * Plugin URI: https://github.com/frontity/frontity-embedded-proof-of-concept
  * Version: 1.0.0
  * 
  * Author: Frontity
@@ -11,14 +11,12 @@
  * 
  * License: GPLv3
  * Copyright: Worona Labs SL
- * 
- * @package Frontity_ThemeBridge
  */
 
 add_filter(
   'template_include',
   function( $template ) {
-    if (!isset($_GET['bypass']))
+    if (!isset($_GET['frontity_bypass']) && !isset($_GET['preview']))
       return plugin_dir_path( __FILE__ ) . '/includes/template.php';
     return $template;
   },
