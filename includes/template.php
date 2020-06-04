@@ -4,7 +4,13 @@
  * Plugin settings. Edit them to match your Frontity server configuration.
  */
 $frontity_server = 'http://localhost:3000';
-$frontity_static_folder = '/static/';
+
+/**
+ * Alternatively, you can use environment variables.
+ */
+if (getenv("FRONTITY_SERVER")) {
+  $frontity_server = getenv("FRONTITY_SERVER");
+}
 
 /***********************************************************************/
 
@@ -23,7 +29,7 @@ $response = wp_remote_get( $url );
 
 if ( !is_wp_error( $response ) ) {
   global $wp_query;
-  $isStatic = strpos( $_SERVER['REQUEST_URI'], $frontity_static_folder ) === 0;
+  $isStatic = strpos( $_SERVER['REQUEST_URI'], '/static/' ) === 0;
   
   // Pass through the Content-Type header.
   header( 'content-type: ' . $response['headers']['content-type'] );
