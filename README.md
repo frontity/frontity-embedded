@@ -55,6 +55,10 @@ If you want to use the Embedded mode while you are developing in your local envi
 > npx frontity dev --publicPath http://localhost:3000/static
 ```
 
+## Post Previews
+
+Post previews don't work yet, so they fall back to the PHP theme. We intend to add another proof of concept of the previews in this repository as well soon.
+
 ---
 
 ## Feature Discussion

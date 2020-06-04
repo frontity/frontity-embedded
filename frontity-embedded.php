@@ -16,7 +16,7 @@
 add_filter(
   'template_include',
   function( $template ) {
-    if (!isset($_GET['frontity_bypass']))
+    if (!isset($_GET['frontity_bypass']) && !isset($_GET['preview']))
       return plugin_dir_path( __FILE__ ) . '/includes/template.php';
     return $template;
   },
