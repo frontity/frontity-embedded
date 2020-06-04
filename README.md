@@ -47,6 +47,14 @@ If you deployed Frontity in an external hosting service, like for example Vercel
 
 > **This step won‘t be necessary for the final plugin.**
 
+## Local Development
+
+If you want to use the Embedded mode while you are developing in your local environment, you can do so by using the `publicPath` parameter in the `npx frontity dev` command as well:
+
+```bash
+> npx frontity dev --publicPath http://localhost:3000/static
+```
+
 ---
 
 ## Feature Discussion
