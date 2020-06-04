@@ -25,6 +25,8 @@ You can also use an environment variable instead of changing the URL in the code
 
 ## Static Assets
 
+> **This step won‘t be necessary in the final plugin.**
+
 If you need, you can change the folder or URL where your static assets are stored using the `publicPath` option of the `npx frontity build` command.
 
 ### Example: Frontity in the same WordPress server
@@ -44,8 +46,6 @@ If you deployed Frontity in an external hosting service, like for example Vercel
 ```bash
 > npx frontity build --publicPath https://myfrontityapp.now.sh/static
 ```
-
-> **This step won‘t be necessary for the final plugin.**
 
 ## Local Development
 
