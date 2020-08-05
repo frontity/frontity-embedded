@@ -1,5 +1,7 @@
 <?php
 
+use Firebase\JWT\JWT;
+
 /**
  * Plugin settings. Edit them to match your Frontity server configuration.
  */
