@@ -1,7 +1,5 @@
 <?php
 
-use Firebase\JWT\JWT;
-
 /**
  * Plugin settings. Edit them to match your Frontity server configuration.
  */
@@ -25,6 +23,37 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 
 // Build the URL to do the request to the Frontity server.
 $url = $frontity_server . $_SERVER['REQUEST_URI'];
+
+// Add a token to the URL if the current page is a preview.
+// **ONLY** if a user is logged in.
+if ( is_preview() && is_user_logged_in() && isset( $_GET['preview_id'] )) {
+  // Get the post ID from the URL.
+  $id = (int) $_GET['preview_id'];
+
+  // Define capabilites depending on if this is a page or a post.
+  if ( is_page() ) {
+    $capabilities = array(
+      'edit_page'   => $id,
+      'delete_page' => $id,
+    );
+  } else {
+    $capabilities = array(
+      'edit_post'   => $id,
+      'delete_post' => $id,
+    );
+  }
+
+  // Generate a token that allows to only get a specific post and its revisions.
+  // You need to have permission to 'edit_post' or 'delete_post' for that.
+  $token = Capability_Tokens::generate( 
+    array(
+      'allow_methods' => array( 'GET' ),
+      'capabilities'  => $capabilities
+    )
+  );
+
+  $url = $url . '&token=' . $token;
+}
 
 // Do the request to the Frontity server.
 $response = wp_remote_get( $url );

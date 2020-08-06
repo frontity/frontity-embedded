@@ -23,12 +23,16 @@ function frontity_embedded_loader() {
 	foreach ( glob( plugin_dir_path( __FILE__ ) . '/includes/php-jwt/*.php' ) as $filename ) {
 		require_once $filename;
   }
+
+  // Load Capability_Tokens class.
+  require_once plugin_dir_path( __FILE__ ) . '/includes/capability-tokens.php';
+  add_action( 'rest_api_init', 'Capability_Tokens::setup' );
   
   // Add Frontity template.
   add_filter(
     'template_include',
     function( $template ) {
-      if (!isset($_GET['frontity_bypass']) && !isset($_GET['preview']))
+      if (!isset($_GET['frontity_bypass']))
         return plugin_dir_path( __FILE__ ) . '/includes/template.php';
       return $template;
     },
