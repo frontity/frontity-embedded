@@ -26,25 +26,27 @@ $url = $frontity_server . $_SERVER['REQUEST_URI'];
 
 // Add a token to the URL if the current page is a preview.
 // **ONLY** if a user is logged in.
-if ( is_preview() && is_user_logged_in() && isset( $_GET['preview_id'] )) {
-  // Get the post ID from the URL.
-  $id = (int) $_GET['preview_id'];
+if ( is_preview() && is_user_logged_in() ) {
+  // Get the entity ID.
+  $id = get_the_ID();
 
   // Define capabilites depending on if this is a page or a post.
   if ( is_page() ) {
     $capabilities = array(
+      'read_page'   => $id,
       'edit_page'   => $id,
       'delete_page' => $id,
     );
   } else {
     $capabilities = array(
+      'read_post'   => $id,
       'edit_post'   => $id,
       'delete_post' => $id,
     );
   }
 
   // Generate a token that allows to only get a specific post and its revisions.
-  // You need to have permission to 'edit_post' or 'delete_post' for that.
+  // You also need to have permission to 'edit_post' or 'delete_post' for that.
   $token = Capability_Tokens::generate( 
     array(
       'allow_methods' => array( 'GET' ),
