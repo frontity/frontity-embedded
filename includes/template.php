@@ -16,7 +16,7 @@ if (getenv("FRONTITY_SERVER")) {
 
 // Redirect Webpack HMR to the Frontity server.
 if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
-  header( 'Location: http://localhost:3000/__webpack_hmr' );
+  header( 'Location: ' . $frontity_server . '/__webpack_hmr' );
   status_header( 301 );
   exit();
 } 
