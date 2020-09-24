@@ -30,19 +30,27 @@ if ( is_preview() && is_user_logged_in() ) {
   // Get the entity ID.
   $id = get_the_ID();
 
-  // Define capabilites depending on if this is a page or a post.
+  // Define capabilites for an specific post or page.
+  // Since WordPress 5.5.1, here we need to use only `post` related
+  // capabilities for both post and page types. See this commit:
+  // https://github.com/WordPress/WordPress/commit/ed713194218792c9f7fda07179be44c46ced1d1d.
+  // The issue solved by the commit was this one:
+  // https://core.trac.wordpress.org/ticket/50128
+  $capabilities = array(
+    'read_post'   => $id,
+    'edit_post'   => $id,
+    'delete_post' => $id,
+  );
+
+  // Prior to WordPress 5.5.1, capabilities should be specified
+  // with `page` for pages, so we are adding them as well to support older
+  // versions of WordPress.
   if ( is_page() ) {
-    $capabilities = array(
-      'read_page'   => $id,
-      'edit_page'   => $id,
-      'delete_page' => $id,
-    );
-  } else {
-    $capabilities = array(
-      'read_post'   => $id,
-      'edit_post'   => $id,
-      'delete_post' => $id,
-    );
+    $capabilities = array_merge( $capabilities, array(
+      "read_page"   => $id,
+      "edit_page"   => $id,
+      "delete_page" => $id,
+    ) );
   }
 
   // Generate a token that allows to only get a specific post and its revisions.
