@@ -70,7 +70,12 @@ $response = wp_remote_get( $url );
 
 if ( !is_wp_error( $response ) ) {
   global $wp_query;
-  $isStatic = strpos( $_SERVER['REQUEST_URI'], '/static/' ) === 0;
+
+  // Consider static all kind of files Webpack returns as static.
+  $isStatic = preg_match(
+    '/\.(js|png|jpe?g|gif|svg|woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/i',
+    $_SERVER['REQUEST_URI']
+  );
   
   // Pass through the Content-Type header.
   header( 'content-type: ' . $response['headers']['content-type'] );
