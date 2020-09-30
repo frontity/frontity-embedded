@@ -97,9 +97,18 @@ class Capability_Tokens {
    * Return the private key used to encode and decode tokens.
    */
   private static function get_private_key() {
-    return defined( 'FRONTITY_CAPS_SECRET_KEY' )
-      ? FRONTITY_CAPS_SECRET_KEY
-      : AUTH_KEY;
+    if ( defined( 'FRONTITY_JWT_AUTH_KEY' ) )
+      return FRONTITY_JWT_AUTH_KEY;
+
+    if ( defined( 'SECURE_AUTH_KEY' ) )
+      return SECURE_AUTH_KEY;
+
+    // No secure auth key found. Throw an error.
+    $error = new WP_Error( 
+      'No secure auth key defined.', 
+      'Please define either SECURE_AUTH_KEY or FRONTITY_JWT_AUTH_KEY in your wp-config.php file.'
+    );
+    throw new Exception( $error->get_error_code() );
   }
 
   /**
