@@ -43,7 +43,7 @@ class Capability_Tokens {
     $payload = array(
       "iat" => $issued_at,
       // Only 60 seconds.
-      "exp" => $issued_at + 10 * MINUTE_IN_SECONDS,
+      "exp" => $issued_at + MINUTE_IN_SECONDS,
       'allow_methods' => $allow_methods,
       'capabilities' => $capabilities
     );
