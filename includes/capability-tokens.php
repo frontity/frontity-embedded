@@ -105,10 +105,10 @@ class Capability_Tokens {
 
     // No secure auth key found. Throw an error.
     $error = new WP_Error( 
-      'No secure auth key defined.', 
+      'no-secure-auth-key', 
       'Please define either SECURE_AUTH_KEY or FRONTITY_JWT_AUTH_KEY in your wp-config.php file.'
     );
-    throw new Exception( $error->get_error_code() );
+    throw new Exception( $error->get_error_message() );
   }
 
   /**
