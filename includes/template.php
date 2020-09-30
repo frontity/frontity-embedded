@@ -14,7 +14,7 @@ if (getenv("FRONTITY_SERVER")) {
 
 /***********************************************************************/
 
-// Redirect Webpack HMR to the Frontity server.
+// Redirect Webpack HMR to the Frontity server. Only for development.
 if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
   header( 'Location: ' . $frontity_server . '/__webpack_hmr' );
   status_header( 301 );
@@ -24,15 +24,15 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 // Build the URL to do the request to the Frontity server.
 $url = $frontity_server . $_SERVER['REQUEST_URI'];
 
-// Add a token to the URL if the current page is a preview.
-// **ONLY** if a user is logged in.
+// Add a token to the URL if the current page is a preview, but only if a user
+// is logged in.
 if ( is_preview() && is_user_logged_in() ) {
   // Get the entity ID.
   $id = get_the_ID();
 
-  // Define capabilites for an specific post or page.
-  // Since WordPress 5.5.1, here we need to use only `post` related
-  // capabilities for both post and page types. See this commit:
+  // Define capabilites for an specific post or page. Since WordPress 5.5.1,
+  // here we need to use only `post` related capabilities for both post and page
+  // types. See this commit:
   // https://github.com/WordPress/WordPress/commit/ed713194218792c9f7fda07179be44c46ced1d1d.
   // The issue solved by the commit was this one:
   // https://core.trac.wordpress.org/ticket/50128
@@ -42,9 +42,9 @@ if ( is_preview() && is_user_logged_in() ) {
     'delete_post' => $id,
   );
 
-  // Prior to WordPress 5.5.1, capabilities should be specified
-  // with `page` for pages, so we are adding them as well to support older
-  // versions of WordPress.
+  // Prior to WordPress 5.5.1, capabilities should be specified with `page` for
+  // pages, so we are adding them as well to support older versions of
+  // WordPress.
   if ( is_page() ) {
     $capabilities = array_merge( $capabilities, array(
       "read_page"   => $id,

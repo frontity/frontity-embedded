@@ -26,6 +26,9 @@ function frontity_embedded_loader() {
 
   // Load Capability_Tokens class.
   require_once plugin_dir_path( __FILE__ ) . '/includes/capability-tokens.php';
+
+  // Start the Capability_Token class in each REST API request to see if it
+  // contains a a token and it should be authenticated.
   add_action( 'rest_api_init', 'Capability_Tokens::setup' );
   
   // Add Frontity template.
