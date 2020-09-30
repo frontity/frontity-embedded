@@ -27,7 +27,7 @@ You can also use an environment variable instead of changing the URL in the code
 
 > **This step won‘t be necessary in the final plugin.**
 
-If you need, you can change the folder or URL where your static assets are stored using the `publicPath` option of the `npx frontity build` command.
+If you need, you can change the folder or URL where your static assets are stored using the `--public-path` option of the `npx frontity build` command.
 
 ### Example: Frontity in the same WordPress server
 
@@ -36,28 +36,24 @@ If you are using the same server for both WordPress and Frontity, and your Front
 You can change the folder when you run `npx frontity build` like this:
 
 ```bash
-> npx frontity build --publicPath /wp-content/frontity/build/static
+> npx frontity build --public-path /wp-content/frontity/build/static
 ```
 
 ### Example: Frontity in an external server
 
-If you deployed Frontity in an external hosting service, like for example Vercel (Now), you can use the `publicPath` option to point directly to the Vercel URL:
+If you deployed Frontity in an external hosting service, like for example Vercel, you can use the `--public-path` option to point directly to the Vercel URL:
 
 ```bash
-> npx frontity build --publicPath https://myfrontityapp.now.sh/static
+> npx frontity build --public-path https://myfrontityapp.now.sh/static
 ```
 
 ## Local Development
 
-If you want to use the Embedded mode while you are developing in your local environment, you can do so by using the `publicPath` parameter in the `npx frontity dev` command as well:
+If you want to use the Embedded mode while you are developing in your local environment, you can do so by using the `--public-path` parameter in the `npx frontity dev` command as well:
 
 ```bash
-> npx frontity dev --publicPath http://localhost:3000/static
+> npx frontity dev --public-path http://localhost:3000/static
 ```
-
-## Post Previews
-
-Post previews don't work yet, so they fall back to the PHP theme. We intend to add another proof of concept of the previews in this repository as well soon.
 
 ---
 
