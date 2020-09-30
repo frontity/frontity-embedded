@@ -129,7 +129,7 @@ if ( !is_wp_error( $response ) ) {
 
 
 } else {
-  // TODO: Proper handling of errors.
+  // TODO: Return pretty HTML instead of PHP exception.
   status_header( 500 );
-  var_dump( $response );
+  throw new Exception( $response->get_error_message() );
 }
