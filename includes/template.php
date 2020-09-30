@@ -62,7 +62,7 @@ if ( is_preview() && is_user_logged_in() ) {
     )
   );
 
-  $url = $url . '&token=' . $token;
+  $url = $url . '&frontity_source_auth=Bearer ' . $token;
 }
 
 // Do the request to the Frontity server.
