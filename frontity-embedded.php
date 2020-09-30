@@ -36,7 +36,7 @@ function frontity_embedded_loader() {
         return plugin_dir_path( __FILE__ ) . '/includes/template.php';
       return $template;
     },
-    PHP_INT_MAX
+    20
   );
 }
 

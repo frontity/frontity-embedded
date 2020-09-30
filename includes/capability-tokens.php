@@ -18,7 +18,7 @@ class Capability_Tokens {
 
     // Filter that modifies user capabilities during runtime.
     if ( defined( 'REST_REQUEST' ) && REST_REQUEST && $payload ) {
-      add_filter( 'user_has_cap', 'Capability_Tokens::user_has_cap', 9999, 4);
+      add_filter( 'user_has_cap', 'Capability_Tokens::user_has_cap', 20, 4);
     }
   }
 
@@ -68,7 +68,7 @@ class Capability_Tokens {
     // Use key-value to check capabilities with an associated ID.
     if ( count( $args ) === 3 ) {
       // Get capability and ID.
-      list( $cap,, $id ) = $args;
+      list( $cap, $_, $id ) = $args;
       // Find that capability in the capabilities array.
       return isset( $capabilities[ $cap ] ) && $capabilities[ $cap ] === $id;
     }
