@@ -6,10 +6,15 @@
 $frontity_server = 'http://localhost:3000';
 
 /**
- * Alternatively, you can use environment variables.
+ * Alternatively, you can use PHP constants or environment variables.
+ * 
+ * Note that, if the PHP constant exists, it would take precedence over
+ * the corresponding environment variable.
  */
-if (getenv("FRONTITY_SERVER")) {
-  $frontity_server = getenv("FRONTITY_SERVER");
+if ( defined( "FRONTITY_SERVER" ) ) {
+  $frontity_server = FRONTITY_SERVER;
+} else if ( getenv( "FRONTITY_SERVER" ) ) {
+  $frontity_server = getenv( "FRONTITY_SERVER" );
 }
 
 /***********************************************************************/
