@@ -6,7 +6,7 @@
 
 If you want to test it out, you can download the zip file from GitHub.
 
-- [Download the zip](https://github.com/frontity/frontity-embedded-proof-of-concept/archive/master.zip) or clone this repository.
+- [Download the zip](https://github.com/frontity/frontity-embedded/archive/master.zip) or clone this repository.
 - Unzip the plugin and edit the `includes/template.php` file to add the URL of your Frontity project.
 
 ```php
