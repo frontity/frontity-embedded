@@ -1,6 +1,6 @@
-# Frontity Embedded Mode - [Proof of Concept]
+# Frontity - Embedded Mode
 
-> ⚠️ This is only a proof of concept of the Embedded Mode idea, not the real plugin. Don't use this in production. This mode will be released as part of the upcoming [Frontity WordPress Plugin](https://github.com/frontity/wp-plugins). Once it's released, we will remove/update this proof of concept. If you want to know about the release you can subscribe to our newsletter at https://frontity.org.
+> ⚠️ This plugin is not the final version of the Embedded Mode. The final version will be released as part of the upcoming [Frontity WordPress Plugin](https://github.com/frontity/wp-plugins). Once it's released, we will remove/update this plugin. If you want to know about the release you can subscribe to our newsletter at https://frontity.org.
 
 ## Install
 
