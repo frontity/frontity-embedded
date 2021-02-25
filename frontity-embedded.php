@@ -3,7 +3,7 @@
  * Plugin Name: Frontity Embedded Mode
  * Description: Replace the WordPress theme with an HTTP request to the Frontity server.
  * Plugin URI: https://github.com/frontity/frontity-embedded
- * Version: 1.1.0
+ * Version: 1.1.1
  * 
  * Author: Frontity
  * Author URI: https://frontity.org
