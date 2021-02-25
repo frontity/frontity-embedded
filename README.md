@@ -1,6 +1,6 @@
 # Frontity - Embedded Mode
 
-> ⚠️ This plugin is not the final version of the Embedded Mode. The final version will be released as part of the upcoming [Frontity WordPress Plugin](https://github.com/frontity/wp-plugins). Once it's released, we will remove/update this plugin. If you want to know about the release you can subscribe to our newsletter at https://frontity.org.
+> ⚠️ This plugin is not the final version of the Embedded Mode. The final version will be released as part of the upcoming [Frontity WordPress Plugin](https://github.com/frontity/wp-plugins). Once it's released, we will remove this plugin. If you want to know about the release you can subscribe to our newsletter at https://frontity.org.
 
 ## Install
 
