@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Frontity Embedded Mode - [Proof of Concept]
+ * Plugin Name: Frontity Embedded Mode
  * Description: Replace the WordPress theme with an HTTP request to the Frontity server.
- * Plugin URI: https://github.com/frontity/frontity-embedded-proof-of-concept
+ * Plugin URI: https://github.com/frontity/frontity-embedded
  * Version: 1.1.0
  * 
  * Author: Frontity
@@ -15,7 +15,7 @@
 
 
 /**
- * Load the Frontity Embedded POC plugin.
+ * Load the Frontity Embedded plugin.
  */
 function frontity_embedded_loader() {
 
