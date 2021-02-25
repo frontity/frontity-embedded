@@ -71,7 +71,8 @@ if ( is_preview() && is_user_logged_in() ) {
 }
 
 // Do the request to the Frontity server.
-$response = wp_remote_get( $url );
+$args = array( 'timeout' => 30 );
+$response = wp_remote_get( $url, $args );
 
 if ( !is_wp_error( $response ) ) {
   global $wp_query;
