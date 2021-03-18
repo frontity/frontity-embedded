@@ -34,36 +34,14 @@ $url = $frontity_server . $_SERVER['REQUEST_URI'];
 if ( is_preview() && is_user_logged_in() ) {
   // Get the entity ID.
   $id = get_the_ID();
+  $type = get_post_type();
 
-  // Define capabilites for an specific post or page. Since WordPress 5.5.1,
-  // here we need to use only `post` related capabilities for both post and page
-  // types. See this commit:
-  // https://github.com/WordPress/WordPress/commit/ed713194218792c9f7fda07179be44c46ced1d1d.
-  // The issue solved by the commit was this one:
-  // https://core.trac.wordpress.org/ticket/50128
-  $capabilities = array(
-    'read_post'   => $id,
-    'edit_post'   => $id,
-    'delete_post' => $id,
-  );
-
-  // Prior to WordPress 5.5.1, capabilities should be specified with `page` for
-  // pages, so we are adding them as well to support older versions of
-  // WordPress.
-  if ( is_page() ) {
-    $capabilities = array_merge( $capabilities, array(
-      "read_page"   => $id,
-      "edit_page"   => $id,
-      "delete_page" => $id,
-    ) );
-  }
-
-  // Generate a token that allows to only get a specific post and its revisions.
-  // You also need to have permission to 'edit_post' or 'delete_post' for that.
+  // Generate a token that allows only to preview a specific post or page.
   $token = Capability_Tokens::generate( 
     array(
-      'allow_methods' => array( 'GET' ),
-      'capabilities'  => $capabilities
+      'type'      => 'preview',
+      'post_type' => $type,
+      'post_id'   => $id,
     )
   );
 

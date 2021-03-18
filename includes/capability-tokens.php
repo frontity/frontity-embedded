@@ -29,23 +29,14 @@ class Capability_Tokens {
     // Get the current time to compute issue and expiration time.
     $issued_at = time();
 
-    // Allowed HTTP methods when the token is used.
-    $allow_methods = is_array( $payload['allow_methods'] )
-      ? $payload['allow_methods']
-      : array( 'GET' );
-
-    // Allowed capabilites when the token is used.
-    $capabilities = is_array( $payload['capabilities'] )
-      ? $payload['capabilities']
-      : array();
-
     // Generate payload.
     $payload = array(
       "iat" => $issued_at,
       // Only 60 seconds.
-      "exp" => $issued_at + MINUTE_IN_SECONDS,
-      'allow_methods' => $allow_methods,
-      'capabilities' => $capabilities
+      "exp"       => $issued_at + MINUTE_IN_SECONDS,
+      'type'      => $payload['type'],
+      'post_type' => $payload['post_type'],
+      'post_id'   => $payload['post_id'],
     );
 
     return JWT::encode($payload, Capability_Tokens::get_private_key());
@@ -55,15 +46,40 @@ class Capability_Tokens {
    * Validate a token using args.
    */
   public static function check_capability( $args ) {
-    $payload = Capability_Tokens::$payload;
+    $payload = (array) Capability_Tokens::$payload;
 
-    // If it is not an allowed HTTP method.
-    if ( ! in_array( $_SERVER[ 'REQUEST_METHOD' ], $payload->allow_methods ) ) {
-      return false;
+    if ( $payload['type'] === 'preview' ) {
+
+      // Allowed HTTP methods when the token is type 'preview'.
+      $allow_methods = array( 'GET' );
+      
+      $post_id = $payload['post_id'];
+      $post_type = $payload['post_type'];
+      
+      // Allowed capabilites when the token is type 'preview'. You also need to
+      // have permission to 'edit_post' or 'delete_post' for preview posts.
+      $capabilities = array(
+        'read_post'   => $post_id,
+        'edit_post'   => $post_id,
+        'delete_post' => $post_id,
+      );
+
+      // Prior to WordPress 5.5.1, capabilities should be specified with `page`
+      // for pages, so we are adding them as well to support older versions of
+      // WordPress.
+      if ( $post_type === 'page' ) {
+        $capabilities = array_merge( $capabilities, array(
+          "read_page"   => $id,
+          "edit_page"   => $id,
+          "delete_page" => $id,
+        ) );
+      }
     }
 
-    // Turn capabilities into an array.
-    $capabilities = (array) $payload->capabilities;
+    // If it is not an allowed HTTP method.
+    if ( ! in_array( $_SERVER[ 'REQUEST_METHOD' ], allow_methods ) ) {
+      return false;
+    }
 
     // Use key-value to check capabilities with an associated ID.
     if ( count( $args ) === 3 ) {
