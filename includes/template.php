@@ -28,6 +28,8 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 
 // Build the URL to do the request to the Frontity server.
 $url = $frontity_server . $_SERVER['REQUEST_URI'];
+// Add the `frontity_embedded` query.
+$url .= ( wp_parse_url( $url, PHP_URL_QUERY ) ? '&' : '?' ) . 'frontity_embedded=true';
 
 // Add a token to the URL if the current page is a preview, but only if a user
 // is logged in.
