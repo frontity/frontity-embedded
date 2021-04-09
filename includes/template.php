@@ -29,12 +29,14 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 
 // Build the URL to do the request to the Frontity server.
 $url = $frontity_server . $_SERVER['REQUEST_URI'];
+// Add the `frontity_embedded` query.
+$url .= ( wp_parse_url( $url, PHP_URL_QUERY ) ? '&' : '?' ) . 'frontity_embedded=true';
 
 // Add a token to the URL if the current page is a preview, but only if a user
-// is logged in.
-if ( is_preview() && is_user_logged_in() ) {
-  // Get the entity ID.
-  $id = get_the_ID();
+// is logged in and can edit the post.
+$id = get_the_ID();
+
+if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post', $id ) ) {
 
   // Define capabilites for an specific post or page. Since WordPress 5.5.1,
   // here we need to use only `post` related capabilities for both post and page
