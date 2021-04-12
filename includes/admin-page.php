@@ -31,8 +31,8 @@ function frontity_embedded_register_settings() {
     'frontity_embedded_plugin_settings',
     'frontity_embedded_plugin_settings',
     array(
-        'sanitize_callback' => 'frontity_embedded_validate_settings',
-    );
+      'sanitize_callback' => 'frontity_embedded_validate_settings'
+    )
   );
 
   add_settings_section(
