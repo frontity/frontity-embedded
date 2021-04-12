@@ -26,7 +26,7 @@ function frontity_embedded_render_admin_page() {
   <?php
 }
 
-function frontity_embedded_register_my_setting() {
+function frontity_embedded_register_settings() {
   register_setting(
     'frontity_embedded_plugin_settings',
     'frontity_embedded_plugin_settings',
@@ -48,7 +48,7 @@ function frontity_embedded_register_my_setting() {
     'frontity_embedded_plugin_section'
   );
 } 
-add_action( 'admin_init', 'frontity_embedded_register_my_setting' );
+add_action( 'admin_init', 'frontity_embedded_register_settings' );
 
 function frontity_embedded_validate_settings( $input ) {
   $output['frontity_server'] = esc_url( sanitize_text_field( $input['frontity_server'] ) );
