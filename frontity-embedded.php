@@ -27,6 +27,9 @@ function frontity_embedded_loader() {
   // Load Capability_Tokens class.
   require_once plugin_dir_path( __FILE__ ) . '/includes/capability-tokens.php';
 
+  // Load the Admin page.
+  require_once plugin_dir_path( __FILE__ ) . '/includes/admin-page.php';
+
   // Start the Capability_Token class in each REST API request to see if it
   // contains a a token and it should be authenticated.
   add_action( 'rest_api_init', 'Capability_Tokens::setup' );
@@ -42,5 +45,22 @@ function frontity_embedded_loader() {
     20
   );
 }
-
 add_action( 'plugins_loaded', 'frontity_embedded_loader' );
+
+/**
+ * Add default settings upon activation.
+ */
+function frontity_embedded_activate() {
+  add_option( 'frontity_embedded_plugin_settings', array(
+    'frontity_server' => 'http://localhost:3000'
+  ) );
+}
+register_activation_hook( __FILE__, 'frontity_embedded_activate' );
+
+/**
+ * Delete settings on uninstall.
+ */
+function frontity_embedded_uninstall() {
+  delete_option( 'frontity_embedded_plugin_settings' );
+}
+register_uninstall_hook( __FILE__, 'frontity_embedded_uninstall' );

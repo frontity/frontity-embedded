@@ -3,7 +3,8 @@
 /**
  * Plugin settings. Edit them to match your Frontity server configuration.
  */
-$frontity_server = 'http://localhost:3000';
+$frontity_settings = get_option( 'frontity_embedded_plugin_settings' );
+$frontity_server = $frontity_settings['frontity_server'];
 
 /**
  * Alternatively, you can use PHP constants or environment variables.
