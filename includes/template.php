@@ -3,7 +3,8 @@
 /**
  * Plugin settings. Edit them to match your Frontity server configuration.
  */
-$frontity_server = 'http://localhost:3000';
+$frontity_settings = get_option( 'frontity_embedded_plugin_settings' );
+$frontity_server = $frontity_settings['frontity_server'];
 
 /**
  * Alternatively, you can use PHP constants or environment variables.
@@ -28,15 +29,18 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 
 // Build the URL to do the request to the Frontity server.
 $url = $frontity_server . $_SERVER['REQUEST_URI'];
+// Add the `frontity_embedded` query.
+$url .= ( wp_parse_url( $url, PHP_URL_QUERY ) ? '&' : '?' ) . 'frontity_embedded=true';
+
+// Get the entity ID.
+$id = get_the_ID();
 
 // Add a token to the URL if the current page is a preview, but only if a user
-// is logged in.
-if ( is_preview() && is_user_logged_in() ) {
-  // Get the entity ID.
-  $id = get_the_ID();
-  $type = get_post_type();
+// is logged in and can edit the post.
+if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post', $id ) ) {
 
   // Generate a token that allows only to preview a specific post or page.
+  $type = get_post_type();
   $token = Capability_Tokens::generate( 
     array(
       'type'      => 'preview',
