@@ -56,7 +56,28 @@ if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post'
 $args = array( 'timeout' => 30 );
 $response = wp_remote_get( $url, $args );
 
-if ( !is_wp_error( $response ) ) {
+if ( is_wp_error( $response ) ) {
+  // If the request fails, set the status to 500.
+  status_header( 500 );
+  if ( WP_DEBUG === true ) {
+    // If the WordPress is in debug mode, throw an error.
+    throw new Exception( $response->get_error_message() );
+  } else {
+    // If not, send the error page.
+    require_once plugin_dir_path( __FILE__ ) . 'error.php';
+  }
+} else if ( substr( (string) $response[ "response" ][ "code" ], 0, 1 ) === "5" ) {
+  // If the request didn't fail, but Frontity returned an error, set the status
+  // to 500.
+  status_header( 500 );
+  if ( isset( $response[ "headers" ][ "x-frontity-dev" ] ) ) {
+    // If Frontity is in development mode, show the error.
+    echo $response[ "body" ];
+  } else {
+    // If not, send the error page.
+    require_once plugin_dir_path( __FILE__ ) . 'error.php';
+  }
+} else {
   global $wp_query;
 
   // Consider static all kind of files Webpack returns as static.
@@ -75,7 +96,7 @@ if ( !is_wp_error( $response ) ) {
   if ( $isStatic && $response['response']['code'] === 200 )
     $wp_query->is_404 = false;
   
-  // Add the admin bar.
+  // Add the Admin Bar.
   if ( !$isStatic && is_admin_bar_showing() ) {
     // Divide the HTML to be able to insert things in the <head> and <body>.
     list($head, $rest) = preg_split('/(?=<\/head>)/', wp_remote_retrieve_body( $response ) );
@@ -84,7 +105,7 @@ if ( !is_wp_error( $response ) ) {
     // Echo the <head>, but don't echo </head> tag yet. 
     echo $head;
   
-    // TODO: Don't hardcode the dependencies, get them from $wp_scripts->registered['admin-bar']->deps.
+    // Get the scripts and styles of the Admin Bar and echo them.
     $scripts = [
       $wp_scripts->registered['admin-bar']->src,
       $wp_scripts->registered['hoverintent-js']->src
@@ -93,7 +114,6 @@ if ( !is_wp_error( $response ) ) {
       $wp_styles->registered['admin-bar']->src,
       $wp_styles->registered['dashicons']->src
     ];
-
     foreach ( $scripts as $script ) {
       echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
     }
@@ -114,10 +134,4 @@ if ( !is_wp_error( $response ) ) {
   } else {
     echo wp_remote_retrieve_body( $response );
   }
-
-
-} else {
-  // TODO: Return pretty HTML instead of PHP exception.
-  status_header( 500 );
-  throw new Exception( $response->get_error_message() );
-}
+} 
