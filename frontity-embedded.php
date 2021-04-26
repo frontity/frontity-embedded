@@ -20,8 +20,16 @@
 function frontity_embedded_loader() {
 
 	// Load php-jwt classes.
-	foreach ( glob( plugin_dir_path( __FILE__ ) . '/includes/php-jwt/*.php' ) as $filename ) {
-		require_once $filename;
+  $jwt_files = array(
+    'BeforeValidException.php',
+    'ExpiredException.php',
+    'JWK.php',
+    'JWT.php',
+    'SignatureInvalidException.php',
+  );
+  
+  foreach ( $jwt_files as $filename ) {
+    require_once plugin_dir_path( __FILE__ ) . '/includes/php-jwt/' . $filename;
   }
 
   // Load Capability_Tokens class.
