@@ -1,31 +1,33 @@
 # Frontity - Embedded Mode
 
-> ⚠️ This plugin is not the final version of the Embedded Mode. The final version will be released as part of the upcoming [Frontity WordPress Plugin](https://github.com/frontity/wp-plugins). Once it's released, we will remove this plugin. If you want to know about the release you can subscribe to our newsletter at https://frontity.org.
+For a full explanation please refer to the [Embedded mode documentation](https://api.frontity.org/frontity-plugins/embedded-mode). If you have any questions related to the plugin feel free to share them in [Frontity community forum](https://community.frontity.org/).
 
 ## Install
 
-If you want to test it out, you can download the zip file from GitHub.
-
-- [Download the zip](https://github.com/frontity/frontity-embedded/archive/master.zip) or clone this repository.
-- Unzip the plugin and edit the `includes/template.php` file to add the URL of your Frontity project.
-
-```php
-$frontity_server = "https://myfrontityserver.com";
-```
-
-- Compress it again and upload it to your WordPress.
+1. First of all you have to install the plugin. You can do it:
+   - **Automatic**: from within WordPress dashboard go to Plugins, click Add New button, search for Frontity Embedded Mode by Frontity and click Install Now.
+   - **Manual**: this method requires to download the plugin and upload it to your web server via FTP. For a more detailed explanation, WordPress explains how to do this [on this guide](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
+2. Once installed, you have to activate it, go to Settings -> Frontity Embedded Mode, and define the proper Frontity Server Url. and it will be running!
 
 ## Environment Variables
 
-You can also use an environment variable instead of changing the URL in the code.
+You can also use an environment variable instead of changing the URL in the plugin interface.
 
-```bash
+```php
 > FRONTITY_SERVER=https://myfrontityserver.com
 ```
 
-## Static Assets
+## WordPress Constant
 
-> **This step won‘t be necessary in the final plugin.**
+Lastly a PHP constant can be defined. This would usually be done in the wp-config.php file.
+
+```
+define( 'FRONTITY_SERVER', 'https://myfrontityserver.com' );
+```
+
+Note that if the PHP constant exists, it takes precedence over both the environment variable and the settings page setting.
+
+## Static Assets
 
 If you need, you can change the folder or URL where your static assets are stored using the `--public-path` option of the `npx frontity build` command.
 
@@ -56,12 +58,6 @@ If you want to use the Embedded mode while you are developing in your local envi
 ```
 
 ---
-
-## Feature Discussion
-
-If you want to give feedback or participate in the conversation before we release the final version of this mode, please join the [**Embedded Mode Feature Discussion**](https://community.frontity.org/t/embedded-mode/1432).
-
-In our community, you can also join other discussions, vote for those you‘re interested in, or create new ones.
 
 ## Frontity Channels 🌎
 
