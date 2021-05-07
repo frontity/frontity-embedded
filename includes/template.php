@@ -54,6 +54,26 @@ if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post'
 
 // Do the request to the Frontity server.
 $args = array( 'timeout' => 30 );
+
+/**
+ * Filters the Frontity Template Request URL before calling. This allows
+ * external code to alter the path before the request is made.
+ *
+ * @hook frontity_template_request_url
+ * @param string $url The frontity request url
+ * @return string
+ */
+$url = apply_filters( 'frontity_template_request_url', $url );
+
+/**
+ * Filters the Frontity Template Request Arguments before calling. This allows external code to alter the WP Remote Get's parameters before the request is made.
+ *
+ * @hook frontity_template_request_args
+ * @param array $args The frontity request args
+ * @return array
+ */
+$args = apply_filters( 'frontity_template_request_args', $args );
+
 $response = wp_remote_get( $url, $args );
 
 if ( is_wp_error( $response ) ) {
