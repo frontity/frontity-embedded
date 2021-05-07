@@ -52,8 +52,27 @@ if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post'
   $url = $url . '&frontity_source_auth=Bearer ' . $token;
 }
 
+/**
+ * Filters the URL before doing the request. This allows external code to alter
+ * the URL before the request is made.
+ *
+ * @hook frontity_embedded_request_url
+ * @param string $url The frontity request url
+ * @return string
+ */
+$url = apply_filters( 'frontity_embedded_request_url', $url );
+
+/**
+ * Filters the arguments before doing the request. This allows external code to
+ * alter the `wp_remote_get` parameters before the request is made.
+ *
+ * @hook frontity_embedded_request_args
+ * @param array $args The `wp_remote_get` args
+ * @return array
+ */
+$args = apply_filters( 'frontity_embedded_request_args', array( 'timeout' => 30 ) );
+
 // Do the request to the Frontity server.
-$args = array( 'timeout' => 30 );
 $response = wp_remote_get( $url, $args );
 
 if ( is_wp_error( $response ) ) {
