@@ -1,0 +1,13 @@
+{
+    "name": "frontity/frontity-embedded",
+    "description": "Embedded Mode plugin for Frontity sites",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Frontity",
+            "homepage": "https://frontity.org"
+        }
+    ],
+    "require": {}
+}
