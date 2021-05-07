@@ -66,7 +66,9 @@ $args = array( 'timeout' => 30 );
 $url = apply_filters( 'frontity_template_request_url', $url );
 
 /**
- * Filters the Frontity Template Request Arguments before calling. This allows external code to alter the WP Remote Get's parameters before the request is made.
+ * Filters the Frontity Template Request Arguments before calling. This allows
+ * external code to alter the WP Remote Get's parameters before the request is
+ * made.
  *
  * @hook frontity_template_request_args
  * @param array $args The frontity request args
