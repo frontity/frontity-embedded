@@ -52,30 +52,27 @@ if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post'
   $url = $url . '&frontity_source_auth=Bearer ' . $token;
 }
 
-// Do the request to the Frontity server.
-$args = array( 'timeout' => 30 );
-
 /**
- * Filters the Frontity Template Request URL before calling. This allows
- * external code to alter the path before the request is made.
+ * Filters the URL before doing the request. This allows external code to alter
+ * the URL before the request is made.
  *
- * @hook frontity_template_request_url
+ * @hook frontity_embedded_request_url
  * @param string $url The frontity request url
  * @return string
  */
-$url = apply_filters( 'frontity_template_request_url', $url );
+$url = apply_filters( 'frontity_embedded_request_url', $url );
 
 /**
- * Filters the Frontity Template Request Arguments before calling. This allows
- * external code to alter the WP Remote Get's parameters before the request is
- * made.
+ * Filters the arguments before doing the request. This allows external code to
+ * alter the `wp_remote_get` parameters before the request is made.
  *
- * @hook frontity_template_request_args
- * @param array $args The frontity request args
+ * @hook frontity_embedded_request_args
+ * @param array $args The `wp_remote_get` args
  * @return array
  */
-$args = apply_filters( 'frontity_template_request_args', $args );
+$args = apply_filters( 'frontity_embedded_request_args', array( 'timeout' => 30 ) );
 
+// Do the request to the Frontity server.
 $response = wp_remote_get( $url, $args );
 
 if ( is_wp_error( $response ) ) {
