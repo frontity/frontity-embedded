@@ -6,7 +6,7 @@
     "authors": [
         {
             "name": "Frontity",
-            "email": "support@frontity.org"
+            "homepage": "https://frontity.org"
         }
     ],
     "require": {}
