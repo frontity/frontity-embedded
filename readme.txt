@@ -16,11 +16,11 @@ This plugin enables an **Embedded Mode** implementation of Frontity. It can be c
 
 In Embedded Mode the primary domain points to the WordPress site, and the Frontity site can be on another domain.
 
-This plugin replaces the active WordPress theme with the Frontity installation. Frontity therefore effectively becomes the WordPress sites' theme. It works by substituting it's own template.php in place of any call made to the WordPress template hierarchy.
+This plugin replaces the active WordPress theme with the Frontity installation. Frontity therefore effectively becomes the WordPress site's theme. It works by substituting its own template.php in place of any call made to the WordPress template hierarchy.
 
 == Support ==
 
-For a more detailed explanation please refer to its own [documentation](https://api.frontity.org/frontity-plugins/embedded-mode). If you have any questions related to the plugin feel free to share them in [Frontity community forum](https://community.frontity.org/) and, if you want to contribute to the code, Pull Requests are welcome on [GitHub](https://github.com/frontity/frontity-embedded).
+For a more detailed explanation, please refer to its own [documentation](https://api.frontity.org/frontity-plugins/embedded-mode). If you have any questions related to the plugin, feel free to share them in [Frontity community forum](https://community.frontity.org/) and, if you want to contribute to the code, Pull Requests are welcome on [GitHub](https://github.com/frontity/frontity-embedded).
 
 == Settings ==
 
@@ -34,7 +34,7 @@ This plugin only has 1 setting, the URL of the Frontity Server. It can be define
     * **Automatic**: from within WordPress dashboard go to Plugins, click Add New button, search for Frontity Embedded Mode by Frontity and click Install Now.
     * **Manual**: this method requires to download the plugin and upload it to your web server via FTP. For a more detailed explanation, WordPress explains how to do this [on this guide](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
     
-2. Once installed, you have to activate it, go to Settings -> Frontity Embedded Mode, and define the proper Frontity Server Url. and it will be running! 
+2. Once installed, you have to activate it, go to Settings -> Frontity Embedded Mode, and define the proper Frontity Server URL and it will be running! 
 
 == Screenshots ==
 
@@ -42,6 +42,25 @@ This plugin only has 1 setting, the URL of the Frontity Server. It can be define
 
 == Changelog ==
 
+
+= 1.3.0 =
+
+- Avoid using glob to load files - [#18](https://github.com/frontity/frontity-embedded/pull/18) Thanks [@SantosGuillamot](https://github.com/SantosGuillamot)!
+- Improve handling of errors - [#17](https://github.com/frontity/frontity-embedded/pull/17) Thanks [@SantosGuillamot](https://github.com/SantosGuillamot) and [@luisherranz](https://github.com/luisherranz)!
+- Restrict token capabilities - [#16](https://github.com/frontity/frontity-embedded/pull/16) Thanks [@Darerodz](https://github.com/Darerodz) and [@luisherranz](https://github.com/luisherranz)!
+- Add a UI for the settings - [#15](https://github.com/frontity/frontity-embedded/pull/15) Thanks [@SantosGuillamot](https://github.com/SantosGuillamot) and [@luisherranz](https://github.com/luisherranz)!
+
+= 1.2.0 =
+
+- Add `frontity_embedded` query to Frontity request - [#11](https://github.com/frontity/frontity-embedded/pull/11) Thanks [@Darerodz](https://github.com/Darerodz) and [@luisherranz](https://github.com/luisherranz)!
+- Increase timeout of request to the Frontity server - [#9](https://github.com/frontity/frontity-embedded/pull/9) Thanks [@luisherranz](https://github.com/luisherranz)!
+- Add the option of defining the server URL using a PHP constant - [#5](https://github.com/frontity/frontity-embedded/pull/5) Thanks [@Darerodz](https://github.com/Darerodz)!
+- Add the option of defining the server URL using a PHP constant - [#5](https://github.com/frontity/frontity-embedded/pull/5) Thanks [@Darerodz](https://github.com/Darerodz)!
+
+= 1.1.0 =
+
+- Add support for post previews - [#3](https://github.com/frontity/frontity-embedded/pull/3) Thanks [@Darerodz](https://github.com/Darerodz)!
+
 = 1.0.0 =
 
-Major Changes: Release the first version of the Frontity Embedded Mode plugin.
+- Release the first version of the Frontity Embedded Mode plugin - Thanks [@luisherranz](https://github.com/luisherranz)!
