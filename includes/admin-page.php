@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function frontity_embedded_register_menu() {
   add_options_page(
@@ -14,14 +14,15 @@ add_action( 'admin_menu', 'frontity_embedded_register_menu' );
 function frontity_embedded_render_admin_page() {
   ?>
     <div class="wrap">
-      <h2>Frontity Embedded Mode</h2>  
-      <form method="POST" action="options.php">  
-          <?php 
+      <h2>Frontity Embedded Mode</h2>
+      <p>For detailed information and usage instructions please refer to the <a href="https://api.frontity.org/frontity-plugins/embedded-mode" target="_blank">documentation page</a>.</p>
+      <form method="POST" action="options.php">
+          <?php
               settings_fields( 'frontity_embedded_plugin_settings' );
-              do_settings_sections( 'frontity_embedded_plugin_page' ); 
-          ?>             
-          <?php submit_button(); ?>  
-      </form> 
+              do_settings_sections( 'frontity_embedded_plugin_page' );
+          ?>
+          <?php submit_button(); ?>
+      </form>
     </div>
   <?php
 }
@@ -49,7 +50,7 @@ function frontity_embedded_register_settings() {
     'frontity_embedded_plugin_page',
     'frontity_embedded_plugin_section'
   );
-} 
+}
 add_action( 'admin_init', 'frontity_embedded_register_settings' );
 
 function frontity_embedded_validate_settings( $input ) {
