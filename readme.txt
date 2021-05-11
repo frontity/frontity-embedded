@@ -42,6 +42,10 @@ This plugin only has 1 setting, the URL of the Frontity Server. It can be define
 
 == Changelog ==
 
+= 1.4.1 =
+
+- Add a link to the documentation in the Admin page - [#22](https://github.com/frontity/frontity-embedded/pull/22) Thanks [@mburridge](https://github.com/mburridge)!
+
 = 1.4.0 =
 
 - Add a `compose.json` - [#21](https://github.com/frontity/frontity-embedded/pull/21) Thanks [@dsawardekar](https://github.com/dsawardekar)!
