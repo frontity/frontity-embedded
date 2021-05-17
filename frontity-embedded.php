@@ -60,7 +60,7 @@ add_action( 'plugins_loaded', 'frontity_embedded_loader' );
  */
 function frontity_embedded_activate() {
   add_option( 'frontity_embedded_plugin_settings', array(
-    'frontity_server' => 'http://localhost:3000'
+    'frontity_server' => ''
   ) );
 }
 register_activation_hook( __FILE__, 'frontity_embedded_activate' );

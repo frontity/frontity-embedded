@@ -57,9 +57,13 @@
           echo "<h1>" . get_bloginfo( 'name' ) . "</h1>";
         }
       ?>
-      <h2>
-        There was a problem loading this page. Try again or come back later.
-      </h2>
+      <?php 
+        if ( "" !== $frontity_server) {
+          echo "<h2>There was a problem loading this page. Try again or come back later.<h2>";
+        } else {
+          echo "<h2>Please enter a valid <a href='https://api.frontity.org/frontity-plugins/embedded-mode#settings'>Frontity Server URL.</a></h2>";
+        }
+      ?>
     </div>
   </body>
 </html>
