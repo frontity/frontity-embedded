@@ -41,7 +41,7 @@ if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post'
 
   // Generate a token that allows only to preview a specific post or page.
   $type = get_post_type();
-  $token = Capability_Tokens::generate( 
+  $token = Frontity_Embedded_Capability_Tokens::generate( 
     array(
       'type'      => 'preview',
       'post_type' => $type,
