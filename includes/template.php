@@ -133,11 +133,17 @@ if ( is_wp_error( $response ) ) {
       $wp_styles->registered['admin-bar']->src,
       $wp_styles->registered['dashicons']->src
     ];
-    foreach ( $scripts as $script ) {
+    function print_admin_script ($script){
       echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
+    };
+    function print_admin_style ($style){
+      echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
+    };
+    foreach ( $scripts as $script ) {
+      do_action('admin_print_scripts', 'print_admin_script', $script);
     }
     foreach ( $styles as $style ) {
-      echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
+      do_action('admin_print_styles', 'print_admin_style', $style);
     }
 
     // Echo the <body>, but don't echo the </body> tag yet.
