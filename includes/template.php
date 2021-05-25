@@ -28,7 +28,7 @@ if ( $_SERVER['REQUEST_URI'] === '/__webpack_hmr' ) {
 } 
 
 // Build the URL to do the request to the Frontity server.
-$url = $frontity_server . $_SERVER['REQUEST_URI'];
+$url = untrailingslashit( $frontity_server ) . $_SERVER['REQUEST_URI'];
 // Add the `frontity_embedded` query.
 $url .= ( wp_parse_url( $url, PHP_URL_QUERY ) ? '&' : '?' ) . 'frontity_embedded=true';
 
@@ -41,7 +41,7 @@ if ( $id && is_preview() && is_user_logged_in() && current_user_can( 'edit_post'
 
   // Generate a token that allows only to preview a specific post or page.
   $type = get_post_type();
-  $token = Capability_Tokens::generate( 
+  $token = Frontity_Embedded_Capability_Tokens::generate( 
     array(
       'type'      => 'preview',
       'post_type' => $type,
@@ -133,11 +133,17 @@ if ( is_wp_error( $response ) ) {
       $wp_styles->registered['admin-bar']->src,
       $wp_styles->registered['dashicons']->src
     ];
-    foreach ( $scripts as $script ) {
+    function print_admin_script ($script){
       echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
+    };
+    function print_admin_style ($style){
+      echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
+    };
+    foreach ( $scripts as $script ) {
+      do_action('admin_print_scripts', 'print_admin_script', $script);
     }
     foreach ( $styles as $style ) {
-      echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
+      do_action('admin_print_styles', 'print_admin_style', $style);
     }
 
     // Echo the <body>, but don't echo the </body> tag yet.

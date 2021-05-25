@@ -32,7 +32,7 @@ function frontity_embedded_loader() {
     require_once plugin_dir_path( __FILE__ ) . '/includes/php-jwt/' . $filename;
   }
 
-  // Load Capability_Tokens class.
+  // Load Frontity_Embedded_Capability_Tokens class.
   require_once plugin_dir_path( __FILE__ ) . '/includes/capability-tokens.php';
 
   // Load the Admin page.
@@ -40,7 +40,7 @@ function frontity_embedded_loader() {
 
   // Start the Capability_Token class in each REST API request to see if it
   // contains a a token and it should be authenticated.
-  add_action( 'rest_api_init', 'Capability_Tokens::setup' );
+  add_action( 'rest_api_init', 'Frontity_Embedded_Capability_Tokens::setup' );
   
   // Add Frontity template.
   add_filter(
@@ -60,7 +60,7 @@ add_action( 'plugins_loaded', 'frontity_embedded_loader' );
  */
 function frontity_embedded_activate() {
   add_option( 'frontity_embedded_plugin_settings', array(
-    'frontity_server' => 'http://localhost:3000'
+    'frontity_server' => ''
   ) );
 }
 register_activation_hook( __FILE__, 'frontity_embedded_activate' );
