@@ -9,6 +9,8 @@ For a full explanation please refer to the [Embedded mode documentation](https:/
    - **Manual**: this method requires to download the plugin and upload it to your web server via FTP. For a more detailed explanation, WordPress explains how to do this [on this guide](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
 2. Once installed, you have to activate it, go to Settings -> Frontity Embedded Mode, and define the proper Frontity Server Url. and it will be running!
 
+> Revisions are necessary to do post previews, so make sure those are activated for both your posts, pages and any custom post types.
+
 ## Environment Variables
 
 You can also use an environment variable instead of changing the URL in the plugin interface.
