@@ -141,20 +141,16 @@ if ( is_wp_error( $response ) ) {
                 $wp_styles->registered['admin-bar']->src,
                 $wp_styles->registered['dashicons']->src
             ];
-            function print_admin_script($script)
-            {
+            function print_admin_script ($script){
                 echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
-            }
-
-            function print_admin_style($style)
-            {
+            };
+            function print_admin_style ($style){
                 echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
-            }
-
-            foreach ($scripts as $script) {
+            };
+            foreach ( $scripts as $script ) {
                 do_action('admin_print_scripts', 'print_admin_script', $script);
             }
-            foreach ($styles as $style) {
+            foreach ( $styles as $style ) {
                 do_action('admin_print_styles', 'print_admin_style', $style);
             }
         }
