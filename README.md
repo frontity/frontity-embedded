@@ -4,9 +4,7 @@ For a full explanation please refer to the [Embedded mode documentation](https:/
 
 ## Install
 
-1. First of all you have to install the plugin. You can do it:
-   - **Automatic**: from within WordPress dashboard go to Plugins, click Add New button, search for Frontity Embedded Mode by Frontity and click Install Now.
-   - **Manual**: this method requires to download the plugin and upload it to your web server via FTP. For a more detailed explanation, WordPress explains how to do this [on this guide](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
+1. First of all you have to install the plugin. [Download the plugin from GitHub](https://github.com/frontity/frontity-embedded/archive/refs/heads/master.zip) and upload it to your web server. For a more detailed explanation, WordPress explains how to do this [on this guide](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
 2. Once installed, you have to activate it, go to Settings -> Frontity Embedded Mode, and define the proper Frontity Server Url. and it will be running!
 
 > Revisions are necessary to do post previews, so make sure those are activated for both your posts, pages and any custom post types.
