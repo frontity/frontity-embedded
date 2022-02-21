@@ -130,6 +130,18 @@ if ( is_wp_error( $response ) ) {
     */
     do_action('frontity_embedded_wp_head');
 
+    if (is_admin_bar_showing()) {
+      $styles = [
+            $wp_styles->registered['admin-bar']->src,
+            $wp_styles->registered['dashicons']->src
+        ];
+      function print_admin_style ($style){
+            echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
+        };
+      foreach ( $styles as $style ) {
+            do_action('admin_print_styles', 'print_admin_style', $style);
+        }
+    }
     // Echo the <body>, but don't echo the </body> tag yet.
     echo $body;
 
@@ -146,21 +158,11 @@ if ( is_wp_error( $response ) ) {
             $wp_scripts->registered['admin-bar']->src,
             $wp_scripts->registered['hoverintent-js']->src
         ];
-        $styles = [
-            $wp_styles->registered['admin-bar']->src,
-            $wp_styles->registered['dashicons']->src
-        ];
         function print_admin_script ($script){
             echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
             };
-        function print_admin_style ($style){
-            echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
-        };
         foreach ( $scripts as $script ) {
             do_action('admin_print_scripts', 'print_admin_script', $script);
-        }
-        foreach ( $styles as $style ) {
-            do_action('admin_print_styles', 'print_admin_style', $style);
         }
         _admin_bar_bump_cb();
         wp_admin_bar_header();
