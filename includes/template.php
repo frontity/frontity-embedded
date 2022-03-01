@@ -116,7 +116,7 @@ if ( is_wp_error( $response ) ) {
     $wp_query->is_404 = false;
   
   // Add the Admin Bar.
-  if ( !$isStatic && is_admin_bar_showing() ) {
+  if ( !$isStatic) {
     // Divide the HTML to be able to insert things in the <head> and <body>.
     list($head, $rest) = preg_split('/(?=<\/head>)/', wp_remote_retrieve_body( $response ) );
     list($body, $end) = preg_split('/(?=<\/body>)/', $rest);
@@ -124,35 +124,50 @@ if ( is_wp_error( $response ) ) {
     // Echo the <head>, but don't echo </head> tag yet. 
     echo $head;
   
-    // Get the scripts and styles of the Admin Bar and echo them.
-    $scripts = [
-      $wp_scripts->registered['admin-bar']->src,
-      $wp_scripts->registered['hoverintent-js']->src
-    ];
-    $styles = [
-      $wp_styles->registered['admin-bar']->src,
-      $wp_styles->registered['dashicons']->src
-    ];
-    function print_admin_script ($script){
-      echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
-    };
-    function print_admin_style ($style){
-      echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
-    };
-    foreach ( $scripts as $script ) {
-      do_action('admin_print_scripts', 'print_admin_script', $script);
-    }
-    foreach ( $styles as $style ) {
-      do_action('admin_print_styles', 'print_admin_style', $style);
-    }
+    /**
+    * Fires a do_action hook similar to wp_head.
+    * https://developer.wordpress.org/reference/functions/wp_head/
+    */
+    do_action('frontity_embedded_wp_head');
 
+    if (is_admin_bar_showing()) {
+      $styles = [
+            $wp_styles->registered['admin-bar']->src,
+            $wp_styles->registered['dashicons']->src
+        ];
+      function print_admin_style ($style){
+            echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
+        };
+      foreach ( $styles as $style ) {
+            do_action('admin_print_styles', 'print_admin_style', $style);
+        }
+    }
     // Echo the <body>, but don't echo the </body> tag yet.
     echo $body;
+
+    /**
+    * Fires a do_action hook similar to wp_footer.
+    * https://developer.wordpress.org/reference/functions/wp_footer/
+    */
+    do_action('frontity_embedded_wp_footer');
     
     // Echo the admin bar HTML.
-    _admin_bar_bump_cb();
-    wp_admin_bar_header();
-    wp_admin_bar_render();
+    if (is_admin_bar_showing()) {
+        // Get the scripts and styles of the Admin Bar and echo them.
+        $scripts = [
+            $wp_scripts->registered['admin-bar']->src,
+            $wp_scripts->registered['hoverintent-js']->src
+        ];
+        function print_admin_script ($script){
+            echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
+            };
+        foreach ( $scripts as $script ) {
+            do_action('admin_print_scripts', 'print_admin_script', $script);
+        }
+        _admin_bar_bump_cb();
+        wp_admin_bar_header();
+        wp_admin_bar_render();
+    }
     
     // Echo the final </body> and </html> tags.
     echo $end;
