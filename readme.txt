@@ -2,8 +2,8 @@
 Contributors: frontity
 Tags: rest, api, embedded, decoupled, frontity
 Requires at least: 5.6
-Tested up to: 5.7
-Stable tag: 1.4.2
+Tested up to: 5.9
+Stable tag: 1.5.0
 Requires PHP: 7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -42,7 +42,11 @@ This plugin only has 1 setting, the URL of the Frontity Server. It can be define
 
 == Changelog ==
 
-= 1.4.2=
+= 1.5.0 =
+
+- Add `frontity_embedded_wp_head` and `frontity_embedded_wp_footer` hooks - [#26](https://github.com/frontity/frontity-embedded/pull/26) Thanks [@johnfrancisli](https://github.com/johnfrancisli)!
+
+= 1.4.2 =
 
 - Use [admin_print_scripts](https://developer.wordpress.org/reference/hooks/admin_print_scripts/) and [admin_print_styles](https://developer.wordpress.org/reference/hooks/admin_print_styles/) to echo scripts and styles in admin pages.
 - Change Capability_Tokens class name to Frontity_Embedded_Capability_Tokens to be more specific.
