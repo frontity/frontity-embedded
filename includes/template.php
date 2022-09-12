@@ -131,16 +131,9 @@ if ( is_wp_error( $response ) ) {
     do_action('frontity_embedded_wp_head');
 
     if (is_admin_bar_showing()) {
-      $styles = [
-            $wp_styles->registered['admin-bar']->src,
-            $wp_styles->registered['dashicons']->src
-        ];
-      function print_admin_style ($style){
-            echo "<link rel='stylesheet' href='" . site_url() . $style . "?ver=" . $wp_version . "' />";
-        };
-      foreach ( $styles as $style ) {
-            do_action('admin_print_styles', 'print_admin_style', $style);
-        }
+        add_action( 'admin_print_styles', 'print_emoji_styles' );
+        add_action( 'admin_print_styles', 'print_admin_styles', 20 );
+        do_action( 'admin_print_styles' );
     }
     // Echo the <body>, but don't echo the </body> tag yet.
     echo $body;
@@ -154,16 +147,9 @@ if ( is_wp_error( $response ) ) {
     // Echo the admin bar HTML.
     if (is_admin_bar_showing()) {
         // Get the scripts and styles of the Admin Bar and echo them.
-        $scripts = [
-            $wp_scripts->registered['admin-bar']->src,
-            $wp_scripts->registered['hoverintent-js']->src
-        ];
-        function print_admin_script ($script){
-            echo "<script src='" . site_url() . $script . "?ver=" . $wp_version . "'></script>";
-            };
-        foreach ( $scripts as $script ) {
-            do_action('admin_print_scripts', 'print_admin_script', $script);
-        }
+        add_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+        add_action( 'admin_print_scripts', 'print_head_scripts', 20 );
+        do_action( 'admin_print_scripts' );
         _admin_bar_bump_cb();
         wp_admin_bar_header();
         wp_admin_bar_render();
