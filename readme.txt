@@ -3,7 +3,7 @@ Contributors: frontity
 Tags: rest, api, embedded, decoupled, frontity
 Requires at least: 5.6
 Tested up to: 5.9
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 Requires PHP: 7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -41,6 +41,10 @@ This plugin only has 1 setting, the URL of the Frontity Server. It can be define
 1. Frontity Embedded Mode Settings
 
 == Changelog ==
+
+= 1.5.1 =
+
+- Fix Admin bar in WP 6.0 - [#30](https://github.com/frontity/frontity-embedded/pull/30) Thanks [@tobeycodes](https://github.com/tobeycodes)!
 
 = 1.5.0 =
 
